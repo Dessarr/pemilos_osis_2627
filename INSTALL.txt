@@ -1,0 +1,83 @@
+===========================================
+PEMILIHAN KETUA & WAKIL OSIS 2025
+INSTALASI CEPAT (5 MENIT)
+===========================================
+
+LANGKAH 1: INSTALL DEPENDENCIES
+---------------------------------
+composer install
+npm install
+
+LANGKAH 2: SETUP ENVIRONMENT
+---------------------------------
+1. Copy .env.example ke .env
+2. Edit .env:
+   DB_DATABASE=db_pemilos_osis
+   DB_USERNAME=root
+   DB_PASSWORD=[password_anda]
+
+3. Generate key:
+   php artisan key:generate
+
+LANGKAH 3: DATABASE SETUP
+---------------------------------
+1. Pastikan database 'db_pemilos_osis' sudah ada di HeidiSQL
+2. Atau import file HeidiSQL.sql
+
+3. Jalankan migration:
+   php artisan migrate
+
+4. Jalankan seeder (50 siswa + 2 paslon + 1000 token):
+   php artisan db:seed
+
+LANGKAH 4: BUILD ASSETS
+---------------------------------
+npm run build
+
+LANGKAH 5: JALANKAN SERVER
+---------------------------------
+php artisan serve
+
+Akses: http://localhost:8000
+
+===========================================
+LOGIN CREDENTIALS
+===========================================
+
+SISWA:
+- NIS: 100001 (sampai 100050)
+- Password: 100001 (sama dengan NIS)
+
+ADMIN:
+- Username: admin
+- Password: admin123
+
+===========================================
+TROUBLESHOOTING
+===========================================
+
+Error: "Class 'Livewire\Component' not found"
+→ Jalankan: composer require livewire/livewire
+
+Error: "Browsershot not found"
+→ Jalankan: composer require spatie/browsershot
+
+Error: Migration failed
+→ Pastikan database sudah ada dan kredensial benar
+
+Error: Seeder failed
+→ Pastikan migration sudah berhasil
+
+===========================================
+FILE PENTING
+===========================================
+
+- DEPLOY.md          : Dokumentasi lengkap
+- HeidiSQL.sql       : SQL dump untuk import manual
+- .env.example       : Template environment file
+- README.md          : Dokumentasi aplikasi
+
+===========================================
+SELAMAT MENGGUNAKAN! 🎉
+===========================================
+
