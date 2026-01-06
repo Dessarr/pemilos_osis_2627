@@ -9,7 +9,8 @@
     <link rel="icon" href="{{ asset('img/logo/logo.png') }}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&family=Lora:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -36,6 +37,18 @@
         }
     }
 
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     .animate-fade-in {
         animation: fadeIn 0.3s ease-out;
     }
@@ -43,10 +56,67 @@
     .animate-scale-in {
         animation: scaleIn 0.3s ease-out;
     }
+
+    .fade-in-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .fade-in-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .fade-in {
+        opacity: 0;
+        transition: opacity 0.8s ease-out;
+    }
+
+    .fade-in.visible {
+        opacity: 1;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-8px);
+        }
+    }
+
+    @keyframes pulse-glow {
+
+        0%,
+        100% {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(217, 119, 6, 0.9);
+        }
+
+        50% {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 20px 8px rgba(217, 119, 6, 0.9);
+        }
+    }
+
+    .btn-bounce {
+        animation: bounce 2s ease-in-out infinite;
+    }
+
+    .btn-pulse-glow {
+        animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .btn-bounce:hover {
+        animation-play-state: paused;
+        transform: translateY(-8px) scale(1.05);
+    }
     </style>
 </head>
 
-<body class="font-sans bg-background" style="font-family: 'Poppins', sans-serif;">
+<body class="font-sans bg-white" style="font-family: 'Lora', serif;">
     <div class="min-h-screen">
         @yield('content')
     </div>
