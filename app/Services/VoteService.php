@@ -2,9 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Siswa;
+use App\Models\Murid;
 use App\Models\Kandidat;
-use App\Models\Token;
 use App\Models\Vote;
 use Illuminate\Support\Facades\DB;
 
@@ -13,32 +12,20 @@ class VoteService
     /**
      * Process a vote
      */
-    public static function processVote(string $nis, int $kandidatId, string $token): array
+    public static function processVote(string $nis, int $kandidatId): array
     {
         try {
             DB::beginTransaction();
 
-            // Check if siswa exists
-            $siswa = Siswa::where('nis', $nis)->first();
-            if (!$siswa) {
+            // Check if murid exists
+            $murid = Murid::where('nis', $nis)->first();
+            if (!$murid) {
                 return ['success' => false, 'message' => 'NIS tidak terdaftar'];
             }
 
-            // Check if already voted (cek di table votes)
-            $existingVote = Vote::where('nis', $nis)->first();
-            if ($existingVote) {
+            // Check if already voted
+            if ($murid->has_voted) {
                 return ['success' => false, 'message' => 'Anda sudah melakukan voting'];
-            }
-
-            // Check if token is valid
-            $tokenModel = Token::where('token', $token)->first();
-            if (!$tokenModel) {
-                return ['success' => false, 'message' => 'Token tidak valid'];
-            }
-
-            // Check if token is already used
-            if ($tokenModel->is_used) {
-                return ['success' => false, 'message' => 'Token sudah digunakan'];
             }
 
             // Check if kandidat exists
@@ -49,17 +36,13 @@ class VoteService
 
             // Create vote
             Vote::create([
-                'nis' => $nis,
                 'kandidat_id' => $kandidatId,
-                'token' => $token,
                 'voted_at' => now(),
             ]);
 
-            // Mark token as used
-            $tokenModel->update([
-                'is_used' => true,
-                'used_by_nis' => $nis,
-                'used_at' => now(),
+            // Mark murid as voted
+            $murid->update([
+                'has_voted' => true,
             ]);
 
             DB::commit();
@@ -79,13 +62,11 @@ class VoteService
         $totalVotes = Vote::count();
         $paslon1Votes = Vote::where('kandidat_id', 1)->count();
         $paslon2Votes = Vote::where('kandidat_id', 2)->count();
-        $availableTokens = Token::where('is_used', false)->count();
 
         return [
             'total_votes' => $totalVotes,
             'paslon1_votes' => $paslon1Votes,
             'paslon2_votes' => $paslon2Votes,
-            'available_tokens' => $availableTokens,
             'paslon1_percentage' => $totalVotes > 0 ? round(($paslon1Votes / $totalVotes) * 100, 2) : 0,
             'paslon2_percentage' => $totalVotes > 0 ? round(($paslon2Votes / $totalVotes) * 100, 2) : 0,
         ];
@@ -120,11 +101,9 @@ class VoteService
             // Delete all votes
             Vote::truncate();
 
-            // Reset all tokens
-            Token::query()->update([
-                'is_used' => false,
-                'used_by_nis' => null,
-                'used_at' => null,
+            // Reset has_voted for all murid
+            Murid::query()->update([
+                'has_voted' => false,
             ]);
 
             DB::commit();

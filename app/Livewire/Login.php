@@ -4,41 +4,40 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Siswa;
+use App\Models\Murid;
 
 class Login extends Component
 {
-    public $nis = '';
+    public $nama = '';
     public $password = '';
     public $error = '';
 
     public function login()
     {
         $this->validate([
-            'nis' => 'required|string',
+            'nama' => 'required|string',
             'password' => 'required|string',
         ]);
 
         // Trim input
-        $nis = trim($this->nis);
-        $password = trim($this->password);
+        $nis = trim($this->nama); // Input "nama" sebenarnya adalah NIS
+        $nisn = trim($this->password); // Input "password" sebenarnya adalah NISN
 
-        // Cari siswa
-        $siswa = Siswa::where('nis', $nis)->first();
+        // Cari siswa berdasarkan NIS
+        $murid = Murid::where('nis', $nis)->first();
 
-        if (!$siswa) {
-            $this->error = 'NIS tidak ditemukan';
+        if (!$murid) {
+            $this->error = 'Nama tidak ditemukan';
             return;
         }
 
-        // Check password dengan Hash::check
-        if (Hash::check($password, $siswa->password)) {
-            Auth::guard('siswa')->login($siswa);
+        // Check password - password harus sama dengan NISN
+        if ($nisn === $murid->nisn) {
+            Auth::guard('siswa')->login($murid);
             return redirect()->route('kandidat');
         }
 
-        $this->error = 'NIS atau password salah';
+        $this->error = 'Nama atau password salah';
     }
 
     public function render()

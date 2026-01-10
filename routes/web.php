@@ -40,6 +40,14 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
         return view('admin.dashboard');
     })->name('dashboard');
     
+    Route::get('/data-siswa', function () {
+        return view('admin.data-siswa');
+    })->name('data-siswa');
+    
+    Route::get('/data-guru', function () {
+        return view('admin.data-guru');
+    })->name('data-guru');
+    
     Route::get('/export/pdf', [AdminController::class, 'exportPdf'])->name('export.pdf');
     Route::get('/export/csv', [AdminController::class, 'exportCsv'])->name('export.csv');
 });

@@ -47,22 +47,21 @@
                 <form action="{{ route('siswa.login') }}" method="POST" class="space-y-4">
                     @csrf
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">NIS</label>
-                        <input type="text" name="nis" value="{{ old('nis') }}" placeholder="Masukkan NIS" required
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama</label>
+                        <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Masukkan NIS" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4551ff] focus:border-transparent outline-none transition">
-                        @error('nis')
+                        @error('nama')
                         <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
                         @enderror
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                        <input type="password" name="password" placeholder="Masukkan password" required
+                        <input type="password" name="password" placeholder="Masukkan NISN" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4551ff] focus:border-transparent outline-none transition">
                         @error('password')
                         <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
                         @enderror
-                        <p class="text-xs text-gray-500 mt-1">Password default: password (untuk Ahmad/Ilyas/Dessar) atau
-                            sama dengan NIS</p>
+                        <p class="text-xs text-gray-500 mt-1">Masukkan NIS sebagai Nama dan NISN sebagai Password</p>
                     </div>
 
                     @if(session('error'))

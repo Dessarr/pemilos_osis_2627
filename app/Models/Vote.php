@@ -8,10 +8,10 @@ class Vote extends Model
 {
     protected $table = 'votes';
     
+    public $timestamps = false; // Table votes tidak memiliki created_at dan updated_at
+    
     protected $fillable = [
-        'nis',
         'kandidat_id',
-        'token',
         'voted_at',
     ];
 

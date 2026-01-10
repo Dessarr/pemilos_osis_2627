@@ -51,14 +51,6 @@
             </div>
         </div>
 
-        <!-- Token Input -->
-        <div class="mb-6">
-            <label class="block text-gray-700 font-semibold mb-2">Masukkan Token</label>
-            <input type="text" wire:model="token" wire:input="validateToken" maxlength="12"
-                placeholder="Masukkan token 12 digit"
-                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4551ff] focus:border-[#4551ff] outline-none transition text-center text-lg font-mono tracking-wider uppercase">
-        </div>
-
         @if($error)
         <div class="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 animate-fade-in">
             {{ $error }}

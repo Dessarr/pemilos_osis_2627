@@ -23,8 +23,9 @@ class TabelVote extends Component
     {
         $votes = Vote::with(['kandidat'])
             ->when($this->search, function ($query) {
-                $query->where('nis', 'like', '%' . $this->search . '%')
-                    ->orWhere('token', 'like', '%' . $this->search . '%');
+                $query->whereHas('kandidat', function ($q) {
+                    $q->where('nama', 'like', '%' . $this->search . '%');
+                });
             })
             ->orderBy('voted_at', 'desc')
             ->paginate(10);

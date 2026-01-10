@@ -9,7 +9,6 @@ use App\Services\VoteService;
 class Voting extends Component
 {
     public $kandidatId;
-    public $token = '';
     public $error = '';
     public $success = false;
 
@@ -18,33 +17,22 @@ class Voting extends Component
         $this->kandidatId = $kandidatId;
     }
 
-    public function validateToken()
-    {
-        $this->validate([
-            'token' => 'required|string|size:12',
-        ]);
-
-        $this->error = '';
-        
-        // Real-time validation
-        if (strlen($this->token) === 12) {
-            // Token format valid, will validate on submit
-        }
-    }
-
     public function submitVote()
     {
-        $this->validate([
-            'token' => 'required|string|size:12',
-        ]);
-
-        $siswa = Auth::guard('siswa')->user();
+        $murid = Auth::guard('siswa')->user();
         
-        if (!$siswa) {
+        if (!$murid) {
+            $this->error = 'Anda harus login terlebih dahulu';
             return redirect()->route('home');
         }
 
-        $result = VoteService::processVote($siswa->nis, $this->kandidatId, strtoupper($this->token));
+        // Check if already voted
+        if ($murid->has_voted) {
+            $this->error = 'Anda sudah melakukan voting';
+            return;
+        }
+
+        $result = VoteService::processVote($murid->nis, $this->kandidatId);
 
         if ($result['success']) {
             $this->success = true;

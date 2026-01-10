@@ -4,31 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Siswa;
+use App\Models\Murid;
 
 class AuthController extends Controller
 {
     public function loginSiswa(Request $request)
     {
         $request->validate([
-            'nis' => 'required|string',
+            'nama' => 'required|string',
             'password' => 'required|string',
         ]);
 
         // Trim input
-        $nis = trim($request->nis);
-        $password = trim($request->password);
+        $nis = trim($request->nama); // Input "nama" sebenarnya adalah NIS
+        $nisn = trim($request->password); // Input "password" sebenarnya adalah NISN
 
-        // Cari siswa
-        $siswa = Siswa::where('nis', $nis)->first();
+        // Cari siswa berdasarkan NIS
+        $murid = Murid::where('nis', $nis)->first();
 
-        if (!$siswa) {
-            return back()->withErrors(['nis' => 'NIS tidak ditemukan'])->withInput()->with('error', 'NIS tidak ditemukan');
+        if (!$murid) {
+            return back()->withErrors(['nama' => 'Nama tidak ditemukan'])->withInput()->with('error', 'Nama tidak ditemukan');
         }
 
-        // Check password - password = NIS (tidak di-hash, langsung compare)
-        if ($password === $siswa->password) {
-            Auth::guard('siswa')->login($siswa);
+        // Check password - password harus sama dengan NISN
+        if ($nisn === $murid->nisn) {
+            Auth::guard('siswa')->login($murid);
             return redirect()->route('kandidat');
         }
 

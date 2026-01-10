@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Siswa;
+use App\Models\Murid;
 use App\Models\Kandidat;
-use App\Models\Token;
 use App\Models\Admin;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -56,61 +54,24 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Seed Siswa Khusus (Ahmad, Ilyas, Dessar)
-        $siswaKhusus = [
-            ['nama' => 'Ahmad', 'nis' => '200001', 'kelas' => 'XII-1'],
-            ['nama' => 'Ilyas', 'nis' => '200002', 'kelas' => 'XII-1'],
-            ['nama' => 'Dessar', 'nis' => '200003', 'kelas' => 'XII-1'],
+        // Seed Murid (Ahmad, Ilyas, Dessar)
+        $murid = [
+            ['nama' => 'Ahmad', 'nis' => '000200001', 'nisn' => '0012345678', 'kelas' => 'XII-1'],
+            ['nama' => 'Ilyas', 'nis' => '000200002', 'nisn' => '0012345679', 'kelas' => 'XII-1'],
+            ['nama' => 'Dessar', 'nis' => '000200003', 'nisn' => '0012345680', 'kelas' => 'XII-1'],
         ];
 
-        foreach ($siswaKhusus as $siswa) {
-            Siswa::updateOrCreate(
-                ['nis' => $siswa['nis']],
+        foreach ($murid as $m) {
+            Murid::updateOrCreate(
+                ['nis' => $m['nis']],
                 [
-                    'nama' => $siswa['nama'],
-                    'kelas' => $siswa['kelas'],
-                    'password' => $siswa['nis'], // Password = NIS (tidak di-hash)
+                    'nama' => $m['nama'],
+                    'kelas' => $m['kelas'],
+                    'nis' => $m['nis'], // Already 9 characters
+                    'nisn' => $m['nisn'],
+                    'has_voted' => false,
                 ]
             );
-        }
-
-        // Seed Siswa (50 siswa: NIS 100001-100050)
-        $kelas = ['X-1', 'X-2', 'X-3', 'XI-1', 'XI-2', 'XI-3', 'XII-1', 'XII-2', 'XII-3'];
-        $namaDepan = ['Andi', 'Budi', 'Citra', 'Dedi', 'Eka', 'Fajar', 'Gita', 'Hadi', 'Indra', 'Joko', 'Kartika', 'Lina', 'Maya', 'Nina', 'Oki', 'Putri', 'Rizky', 'Sari', 'Toni', 'Umi', 'Vina', 'Wawan', 'Yani', 'Zaki'];
-        $namaBelakang = ['Pratama', 'Santoso', 'Lestari', 'Wijaya', 'Kurniawan', 'Sari', 'Dewi', 'Rahman', 'Hidayat', 'Sari', 'Kartika', 'Wulandari', 'Sari', 'Ningsih', 'Purnama', 'Sari', 'Abdullah', 'Lestari', 'Kartika', 'Sari', 'Lestari', 'Sari', 'Kartika', 'Sari'];
-
-        for ($i = 1; $i <= 50; $i++) {
-            $nis = str_pad(100000 + $i, 6, '0', STR_PAD_LEFT);
-            $nama = $namaDepan[array_rand($namaDepan)] . ' ' . $namaBelakang[array_rand($namaBelakang)];
-            if ($i > 1) {
-                $nama .= ' ' . $i; // Make names unique
-            }
-            
-            Siswa::updateOrCreate(
-                ['nis' => $nis],
-                [
-                    'nama' => $nama,
-                    'kelas' => $kelas[array_rand($kelas)],
-                    'password' => $nis, // Password = NIS (tidak di-hash)
-                ]
-            );
-        }
-
-        // Seed Tokens (1000 random 12-digit tokens)
-        $tokens = [];
-        for ($i = 0; $i < 1000; $i++) {
-            // Generate random 12-character token (A-Z0-9)
-            $token = strtoupper(Str::random(12));
-            // Ensure uniqueness
-            while (in_array($token, $tokens) || Token::where('token', $token)->exists()) {
-                $token = strtoupper(Str::random(12));
-            }
-            $tokens[] = $token;
-            
-            Token::create([
-                'token' => $token,
-                'is_used' => false,
-            ]);
         }
 
         // Seed Admin
@@ -124,8 +85,6 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Seeder berhasil!');
         $this->command->info('- 1 Admin telah dibuat (nama: osissmkn1kotabekasipemilos)');
         $this->command->info('- 2 Kandidat/Paslon telah dibuat');
-        $this->command->info('- 3 Siswa Khusus (Ahmad, Ilyas, Dessar) - Password = NIS');
-        $this->command->info('- 50 Siswa (NIS: 100001-100050) - Password = NIS');
-        $this->command->info('- 1000 Token random telah dibuat');
+        $this->command->info('- 3 Murid (Ahmad, Ilyas, Dessar)');
     }
 }

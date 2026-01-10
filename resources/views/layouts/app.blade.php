@@ -117,7 +117,7 @@
 </head>
 
 <body class="font-sans bg-white" style="font-family: 'Lora', serif;">
-    <div class="min-h-screen">
+    <div class="min-h-screen w-full">
         @yield('content')
     </div>
 

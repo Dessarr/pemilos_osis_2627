@@ -21,17 +21,17 @@
                 @csrf
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
-                    <input type="text" name="nis" value="{{ old('nis') }}" required
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama</label>
+                    <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Masukkan NIS" required
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4551ff] focus:border-transparent outline-none transition">
-                    @error('nis')
+                    @error('nama')
                     <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                    <input type="password" name="password" required
+                    <input type="password" name="password" placeholder="Masukkan NISN" required
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4551ff] focus:border-transparent outline-none transition">
                     @error('password')
                     <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>

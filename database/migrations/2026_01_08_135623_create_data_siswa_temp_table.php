@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tokens', function (Blueprint $table) {
+        Schema::create('data_siswa_temp', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('token', 12)->unique();
-            $table->boolean('is_used')->default(false);
-            $table->string('used_by_nis', 20)->nullable();
-            $table->timestamp('used_at')->nullable();
+            $table->string('nama', 255);
+            $table->string('kelas', 10);
+            $table->char('nis', 9);
+            $table->string('nisn', 10);
+            $table->boolean('has_voted')->default(false);
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tokens');
+        Schema::dropIfExists('data_siswa_temp');
     }
 };

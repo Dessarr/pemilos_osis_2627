@@ -21,31 +21,37 @@
 
             <!-- Navigation Links (Center) -->
             <div class="hidden lg:flex items-center gap-8" style="font-family: 'Lora', serif;">
-                <a href="#beranda" class="nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
+                <a href="#beranda"
+                    class="nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
                     Beranda
                 </a>
-                <a href="#tentang" class="nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
+                <a href="#tentang"
+                    class="nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
                     Tentang
                 </a>
-                <a href="#prinsip" class="nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
+                <a href="#prinsip"
+                    class="nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
                     Prinsip
                 </a>
-                <a href="#inspirasi" class="nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
+                <a href="#inspirasi"
+                    class="nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
                     Inspirasi
                 </a>
-                <a href="#kontak" class="nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
+                <a href="#kontak"
+                    class="nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
                     Kontak
                 </a>
             </div>
 
             <!-- Title Center (Mobile) -->
-            <div class="flex-1 text-center lg:hidden" style="font-family: 'Poppins', sans-serif;">
+            <div class="flex-1 text-left px-4 md:hidden lg:hidden" style="font-family: 'Poppins', sans-serif;">
                 <h1 class="text-sm font-bold text-gray-900">OSIS SMKN 1</h1>
                 <p class="text-xs text-gray-600">KOTA BEKASI</p>
             </div>
 
             <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="lg:hidden text-gray-600 hover:text-amber-600 transition-colors duration-300">
+            <button id="mobile-menu-btn"
+                class="lg:hidden text-gray-600 hover:text-amber-600 transition-colors duration-300">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -55,19 +61,24 @@
         <!-- Mobile Navigation Menu -->
         <div id="mobile-menu" class="hidden lg:hidden pb-4 border-t border-gray-100 mt-4">
             <div class="flex flex-col gap-4 pt-4" style="font-family: 'Lora', serif;">
-                <a href="#beranda" class="mobile-nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
+                <a href="#beranda"
+                    class="mobile-nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
                     Beranda
                 </a>
-                <a href="#tentang" class="mobile-nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
+                <a href="#tentang"
+                    class="mobile-nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
                     Tentang
                 </a>
-                <a href="#prinsip" class="mobile-nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
+                <a href="#prinsip"
+                    class="mobile-nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
                     Prinsip
                 </a>
-                <a href="#inspirasi" class="mobile-nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
+                <a href="#inspirasi"
+                    class="mobile-nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
                     Inspirasi
                 </a>
-                <a href="#kontak" class="mobile-nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
+                <a href="#kontak"
+                    class="mobile-nav-link text-sm text-gray-600 hover:text-amber-600 transition-colors duration-300 font-light">
                     Kontak
                 </a>
             </div>
@@ -241,7 +252,7 @@
                     <div class="w-full md:w-1/2 md:pl-12">
                         <div class="pt-8 pb-4 text-right md:text-left group">
                             <div
-                                class="h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mb-8 transition-all duration-300 group-hover:via-amber-500">
+                                class="h-px bg-linear-to-r from-transparent via-amber-400 to-transparent mb-8 transition-all duration-300 group-hover:via-amber-500">
                             </div>
                             <div class="flex items-start gap-6 mb-6 md:flex-row-reverse">
                                 <div
@@ -480,7 +491,8 @@
                                 style="font-family: 'Playfair Display', serif;">
                                 Instagram
                             </h3>
-                            <p class="text-[10px] md:text-base text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                            <p
+                                class="text-[10px] md:text-base text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
                                 @osissmkn1bekasi</p>
                         </div>
                     </div>
@@ -504,7 +516,8 @@
                                 style="font-family: 'Playfair Display', serif;">
                                 TikTok
                             </h3>
-                            <p class="text-[10px] md:text-base text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                            <p
+                                class="text-[10px] md:text-base text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
                                 @osissmkn1bekasi</p>
                         </div>
                     </div>
@@ -519,7 +532,8 @@
                             class="w-full h-full bg-white rounded-lg md:rounded-2xl flex flex-col justify-center items-center p-3 md:p-8 shadow-lg group-hover:shadow-xl group-hover:scale-[1.02] transition-all duration-300">
                             <div
                                 class="w-10 h-10 md:w-16 md:h-16 mx-auto mb-2 md:mb-6 rounded-full bg-gradient-to-br from-amber-600 via-amber-500 to-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                <svg class="w-5 h-5 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
@@ -636,7 +650,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 const offsetTop = targetElement.offsetTop - 80; // Offset untuk navbar
@@ -644,7 +658,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: offsetTop,
                     behavior: 'smooth'
                 });
-                
+
                 // Close mobile menu jika terbuka
                 const mobileMenu = document.getElementById('mobile-menu');
                 if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
@@ -657,7 +671,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
-    
+
     if (mobileMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener('click', function() {
             mobileMenu.classList.toggle('hidden');

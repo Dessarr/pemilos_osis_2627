@@ -1,143 +1,142 @@
 <div>
     <!-- Kandidat Cards -->
-    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
-        @foreach($kandidat as $item)
-        <div
-            class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
-            <div class="h-64 bg-gradient-to-br from-[#6b7280] to-[#4b5563] flex items-center justify-center relative">
-                @if($item->gambar)
-                <img src="{{ $item->gambar }}" alt="{{ $item->nama }}" class="w-full h-full object-cover">
-                @else
-                <div class="text-white text-6xl font-bold">{{ $item->id }}</div>
-                @endif
-                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                    <h3 class="text-white text-xl font-semibold">{{ $item->nama }}</h3>
-                    <p class="text-white/90 text-sm">{{ $item->ketos_nama }} & {{ $item->waketos_nama }}</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-12 max-w-7xl mx-auto py-3">
+        @forelse($kandidat as $item)
+        <div class="relative cursor-pointer group transition-transform duration-300 hover:scale-105"
+            wire:click="openModal({{ $item->id }})" data-paslon-id="{{ $item->id }}">
+            <!-- Container untuk frame -->
+            <div class="relative w-full paslon-container" style="aspect-ratio: 4/3; overflow: visible;">
+                <!-- Foto Formal/Unformal dengan fade effect - Ukuran konsisten -->
+                <div class="absolute inset-0 w-full h-full flex items-center justify-center z-10"
+                    style="overflow: visible;">
+                    <img src="{{ asset('img/paslon' . $item->id . '/frame_kandidat/formal' . $item->id . '.png') }}"
+                        alt="Foto Formal Paslon {{ $item->id }}"
+                        class="absolute paslon-{{ $item->id }}-formal transition-opacity duration-1000"
+                        style="opacity: 1; max-width: 100%; height: auto;">
+                    <img src="{{ asset('img/paslon' . $item->id . '/frame_kandidat/unformal' . $item->id . '.png') }}"
+                        alt="Foto Unformal Paslon {{ $item->id }}"
+                        class="absolute paslon-{{ $item->id }}-unformal transition-opacity duration-1000"
+                        style="opacity: 0; max-width: 100%; height: auto;">
                 </div>
             </div>
-            <div class="p-6">
-                <p class="text-gray-700 text-sm mb-4 line-clamp-2">
-                    {{ \Illuminate\Support\Str::limit($item->visi, 100) }}</p>
-                <button type="button" wire:click="openModal({{ $item->id }})"
-                    class="w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 rounded-lg transition">
-                    Lihat Detail
-                </button>
-            </div>
         </div>
-        @endforeach
+        @empty
+        <div class="col-span-2 text-center py-12">
+            <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                </path>
+            </svg>
+            <p class="text-gray-500 text-lg">Belum ada kandidat yang terdaftar</p>
+        </div>
+        @endforelse
     </div>
 
     <!-- Modal Detail Kandidat -->
+    <!-- Modal Detail Kandidat -->
     @if($showModal && $selectedKandidat)
-    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-        style="display: flex !important;" wire:click="closeModal" wire:key="modal-backdrop-{{ $selectedKandidat->id }}">
-        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-xl" wire:click.stop
-            wire:key="modal-content-{{ $selectedKandidat->id }}" onclick="event.stopPropagation()">
-            <div class="p-6 md:p-8">
-                <!-- Header -->
-                <div class="flex justify-between items-start mb-6">
+    <div class="fixed inset-0 flex items-center justify-center z-50 p-4 h-full" style="display: flex !important;"
+        wire:click="closeModal" wire:key="modal-backdrop-{{ $selectedKandidat->id }}">
+        <div class="inset-0 flex items-center justify-center h-[80%]">
+            <div class="relative bg-[#fef9e72d] rounded-2xl w-[85%] h-full overflow-y-scroll" wire:click.stop
+                wire:key="modal-content-{{ $selectedKandidat->id }}" onclick="event.stopPropagation()">
+                <!-- X button for close -->
+                <button type="button" wire:click="closeModal"
+                    class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+
+                <!-- Carousel for 3 images -->
+                <div>
+                    <div class="carousel fade-in-out">
+                        <!-- Foto 1 -->
+                        <img src="{{ asset('img/paslon' . $selectedKandidat->id . '/detail/foto1.png') }}"
+                            alt="Kandidat Foto 1" class="carousel-img w-full object-cover rounded-xl"
+                            style="display: block;">
+                        <!-- Foto 2 -->
+                        <img src="{{ asset('img/paslon' . $selectedKandidat->id . '/detail/foto2.png') }}"
+                            alt="Kandidat Foto 2" class="carousel-img w-full object-cover rounded-xl"
+                            style="display: none;">
+                        <!-- Foto 3 -->
+                        <img src="{{ asset('img/paslon' . $selectedKandidat->id . '/detail/foto3.png') }}"
+                            alt="Kandidat Foto 3" class="carousel-img w-full object-cover rounded-xl"
+                            style="display: none;">
+                    </div>
+                </div>
+
+
+
+                <!-- Border Section -->
+                <div class="relative border-t-8 border-b-8 border-[#FFE064] opacity-100 fade-out-border">
+                    <!-- Vote Button Section -->
+                    <div class="relative">
+                        <a href="{{ route('voting', $selectedKandidat->id) }}"
+                            class="block w-full bg-[#FFFFFF] opacity-20 shadow-inner-inner px-4 py-2 text-gray-800 font-semibold rounded-lg text-center transition transform hover:scale-105">
+                            <span class="font-playfair text-lg">VOTE PASLON</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- VISI and MISI Section -->
+                <div class="p-6 bg-[]">
+                    <!-- VISI Section -->
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-playfair mb-3">VISI</h3>
+                        <p class="text-lg font-montserrat">{{ $selectedKandidat->visi }}</p>
+                        <hr class="my-4 w-[80%] mx-auto" />
+                    </div>
+
+                    <!-- MISI Section -->
                     <div>
-                        <h2 class="text-3xl font-bold text-gray-800 mb-2">{{ $selectedKandidat->nama }}</h2>
-                        <p class="text-gray-600">Paslon Nomor {{ $selectedKandidat->id }}</p>
-                    </div>
-                    <button type="button" wire:click="closeModal" class="text-gray-500 hover:text-gray-700 transition">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Biodata Ketos & Waketos -->
-                <div class="grid md:grid-cols-2 gap-6 mb-8">
-                    <!-- Ketos -->
-                    <div class="bg-gradient-to-br from-[#4b5563] to-[#6b7280] rounded-xl p-6 text-white">
-                        <div class="text-center mb-4">
-                            <div
-                                class="w-24 h-24 mx-auto mb-3 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                                @if($selectedKandidat->ketos_foto)
-                                <img src="{{ $selectedKandidat->ketos_foto }}" alt="{{ $selectedKandidat->ketos_nama }}"
-                                    class="w-full h-full object-cover">
-                                @else
-                                <div class="w-full h-full bg-white/20 flex items-center justify-center">
-                                    <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                                    </svg>
-                                </div>
-                                @endif
-                            </div>
-                            <h3 class="text-xl font-semibold mb-1">Ketua OSIS</h3>
-                            <p class="text-lg font-semibold">{{ $selectedKandidat->ketos_nama }}</p>
-                            <p class="text-sm opacity-90">Kelas {{ $selectedKandidat->ketos_kelas }}</p>
-                        </div>
-                        <div class="bg-white/10 rounded-lg p-4">
-                            <p class="text-sm leading-relaxed">{{ $selectedKandidat->ketos_biodata }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Waketos -->
-                    <div class="bg-gradient-to-br from-[#fbbf24] to-[#f59e0b] rounded-xl p-6 text-gray-800">
-                        <div class="text-center mb-4">
-                            <div
-                                class="w-24 h-24 mx-auto mb-3 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                                @if($selectedKandidat->waketos_foto)
-                                <img src="{{ $selectedKandidat->waketos_foto }}"
-                                    alt="{{ $selectedKandidat->waketos_nama }}" class="w-full h-full object-cover">
-                                @else
-                                <div class="w-full h-full bg-white/20 flex items-center justify-center">
-                                    <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                                    </svg>
-                                </div>
-                                @endif
-                            </div>
-                            <h3 class="text-xl font-semibold mb-1">Wakil Ketua OSIS</h3>
-                            <p class="text-lg font-semibold">{{ $selectedKandidat->waketos_nama }}</p>
-                            <p class="text-sm opacity-80">Kelas {{ $selectedKandidat->waketos_kelas }}</p>
-                        </div>
-                        <div class="bg-white/30 rounded-lg p-4">
-                            <p class="text-sm leading-relaxed">{{ $selectedKandidat->waketos_biodata }}</p>
-                        </div>
+                        <h3 class="text-2xl font-playfair mb-3">MISI</h3>
+                        <p class="text-lg font-montserrat">{{ $selectedKandidat->misi }}</p>
                     </div>
                 </div>
-
-                <!-- Visi -->
-                <div class="mb-6 bg-[#f3f4f6] rounded-xl p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
-                        <svg class="w-6 h-6 mr-2 text-[#4b5563]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                            </path>
-                        </svg>
-                        Visi
-                    </h3>
-                    <p class="text-gray-700 text-lg leading-relaxed">{{ $selectedKandidat->visi }}</p>
-                </div>
-
-                <!-- Misi -->
-                <div class="mb-8 bg-white border-2 border-[#4b5563] rounded-xl p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
-                        <svg class="w-6 h-6 mr-2 text-[#fbbf24]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
-                            </path>
-                        </svg>
-                        Misi
-                    </h3>
-                    <div class="text-gray-700 leading-relaxed whitespace-pre-line">{{ $selectedKandidat->misi }}</div>
-                </div>
-
-                <!-- Button Pilih Paslon -->
-                <a href="{{ route('voting', $selectedKandidat->id) }}"
-                    class="block w-full bg-[#fbbf24] hover:bg-[#f59e0b] text-gray-800 font-semibold py-4 rounded-lg text-center transition transform hover:scale-105 shadow-lg text-lg">
-                    PILIH PASLON INI
-                </a>
             </div>
         </div>
     </div>
     @endif
+
+
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Tunggu beberapa detik sebelum memulai carousel (untuk memastikan gambar dimuat)
+    setTimeout(function() {
+        const images = document.querySelectorAll('.carousel-img'); // Ambil semua gambar dalam carousel
+
+        // Jika tidak ada gambar yang ditemukan, tampilkan pesan error di konsol
+        if (images.length === 0) {
+            console.error('No images found in the carousel.');
+            return;
+        }
+
+        let currentIndex = 0; // Menyimpan indeks gambar yang sedang ditampilkan
+
+        // Fungsi untuk mengganti gambar dengan efek fade
+        function changeImage() {
+            // Sembunyikan semua gambar
+            images.forEach((image) => image.style.display = 'none');
+
+            // Menampilkan gambar yang sesuai dengan currentIndex
+            if (images[currentIndex]) { // Pastikan elemen gambar ada
+                images[currentIndex].style.display = 'block';
+            }
+
+            // Perbarui currentIndex untuk gambar berikutnya
+            currentIndex = (currentIndex + 1) % images
+                .length; // Perulangan ke gambar pertama setelah yang terakhir
+        }
+
+        // Panggil fungsi changeImage pertama kali
+        changeImage();
+
+        // Ganti gambar setiap 5 detik (5000 ms)
+        setInterval(changeImage, 5000);
+    }, 500); // Tunggu 500ms sebelum memulai carousel
+});
+</script>

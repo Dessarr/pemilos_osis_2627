@@ -8,7 +8,6 @@ use App\Services\VoteService;
 class Dashboard extends Component
 {
     public $stats = [];
-    public $votesPerDay = [];
 
     public function mount()
     {
@@ -18,7 +17,6 @@ class Dashboard extends Component
     public function loadData()
     {
         $this->stats = VoteService::getStatistics();
-        $this->votesPerDay = VoteService::getVotesPerDay();
     }
 
     public function resetVotes()
